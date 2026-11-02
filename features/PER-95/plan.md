@@ -12,11 +12,11 @@ A type-checker soundness bug where zero-length array constants of type `!` incor
 
 ## Steps
 
-1. [ ] **analyst (inline_story)** — Single-repo compiler bug needs clear requirements with acceptance criteria for the fix.
+1. [x] **analyst (inline_story)** — Single-repo compiler bug needs clear requirements with acceptance criteria for the fix.
    - focus: Focus on the type-checker's treatment of `!`-typed constants in zero-length array contexts; the divergence analysis must not affect reachability when the constant is never evaluated.
-2. [ ] **designer (lld)** — Compiler bug fix needs concrete file plan identifying affected type-checking and MIR generation code paths.
+2. [x] **designer (lld)** — Compiler bug fix needs concrete file plan identifying affected type-checking and MIR generation code paths.
    - focus: Identify the type-checking phase that incorrectly propagates divergence from unevaluated constants, and the MIR lowering that marks subsequent code unreachable; include safeguards to prevent similar issues.
-3. [ ] **test_architect (tests)** — Soundness bug with multiple manifestations needs comprehensive test coverage including the provided examples and edge cases.
+3. [x] **test_architect (tests)** — Soundness bug with multiple manifestations needs comprehensive test coverage including the provided examples and edge cases.
    - focus: Cover both the trait-based and direct `[!; 0]` patterns; test debug and release builds; verify no SIGILL and correct runtime behavior when bounds check fails.
 4. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 5. [ ] **dev** _(auto)_ — Loop delivery.
