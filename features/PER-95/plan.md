@@ -18,7 +18,7 @@ A type-checker soundness bug where zero-length array constants of type `!` incor
    - focus: Identify the type-checking phase that incorrectly propagates divergence from unevaluated constants, and the MIR lowering that marks subsequent code unreachable; include safeguards to prevent similar issues.
 3. [x] **test_architect (tests)** — Soundness bug with multiple manifestations needs comprehensive test coverage including the provided examples and edge cases.
    - focus: Cover both the trait-based and direct `[!; 0]` patterns; test debug and release builds; verify no SIGILL and correct runtime behavior when bounds check fails.
-4. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+4. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
 5. [ ] **dev** _(auto)_ — Loop delivery.
 6. [ ] **pre_pr_qa** _(auto)_ — Loop delivery.
 7. [ ] **open_pr** _(auto)_ — Loop delivery.

@@ -1,34 +1,34 @@
 ---
 schema_version: 1
 key: PER-95
-status: waiting_architect_review
-current_node: architect_gate
+status: escalated
+current_node: dev
 track: standard
 involved_repos:
 - Rust
 depends_on: []
 owner: pavc
-lease_until: '2026-11-04T09:54:05.383107+00:00'
-revision: 20
+lease_until: '2026-11-04T10:00:04.411603+00:00'
+revision: 31
 hub_sha: null
 ticket_hash: 572d3a16bac991c2
 jira_hash: 572d3a16bac991c2
-tpm_approved: false
-specs_locked: false
+tpm_approved: true
+specs_locked: true
 skills_lock:
   bmad: 1cbcfa272fe65787c06a1fa164a901f46117cca7
 stories:
 - 01-Rust
 child_ticket_keys: []
 critic_iterations: 0
-dev_retries: 0
+dev_retries: 3
 pr_revision_rounds: 0
 gate_rounds: {}
 pr_ids:
   hub_plan: '4'
   hub_arch: '5'
   hub: '5'
-waiting_for: architect_review
+waiting_for: dev_failure
 tokens_in: 65238
 tokens_out: 19224
 cost_anthropic_usd: 0.48313
@@ -80,6 +80,22 @@ history:
 - node: architect_gate
   note: awaiting human hub PR approval
   at: '2026-11-02T09:58:35.832448+00:00'
+- node: architect_gate
+  note: approved via hub PR (reconcile)
+  at: '2026-11-02T10:00:04.387025+00:00'
+- node: architect_gate
+  note: "forge unlocked architect_review \u2192 resume"
+  at: '2026-11-02T10:00:04.411634+00:00'
+- node: dev
+  note: starting
+  at: '2026-11-02T10:00:06.414579+00:00'
+- node: dev
+  note: 'not checked before PR, commands empty in project.yaml: repos.Rust.commands.test,
+    repos.Rust.commands.lint'
+  at: '2026-11-02T10:00:06.414599+00:00'
+- node: dev
+  note: 'failed 01-Rust: agent made no code changes (agent status=ok: no error)'
+  at: '2026-11-02T10:06:31.236830+00:00'
 ---
 
 # Feature state
