@@ -1,15 +1,15 @@
 ---
 schema_version: 1
 key: PER-94
-status: in_development
-current_node: dev
+status: pr_reviewed
+current_node: pr_review
 track: standard
 involved_repos:
 - Rust
 depends_on: []
 owner: pavc
 lease_until: '2026-11-04T08:05:46.537071+00:00'
-revision: 31
+revision: 34
 hub_sha: null
 ticket_hash: 6f37e5b89ce1143d
 jira_hash: 6f37e5b89ce1143d
@@ -29,10 +29,10 @@ pr_ids:
   hub_arch: '3'
   hub: '3'
   Rust: '1'
-waiting_for: null
-tokens_in: 64072
-tokens_out: 11141
-cost_anthropic_usd: 0.351171
+waiting_for: feature_pr_human
+tokens_in: 76123
+tokens_out: 12435
+cost_anthropic_usd: 0.391698
 history:
 - node: intake
   note: snapshot written
@@ -132,6 +132,51 @@ history:
 - node: dev
   note: done 01-Rust
   at: '2026-11-02T08:42:34.233991+00:00'
+- node: pre_pr_qa
+  note: report written
+  at: '2026-11-02T08:42:37.417464+00:00'
+- node: open_pr
+  note: push Rust ok
+  at: '2026-11-02T08:42:40.464260+00:00'
+- node: pr_review
+  note: still_open Rust:4440296541
+  at: '2026-11-02T08:42:47.100713+00:00'
+- node: pr_review
+  note: resolved Rust:4440296543
+  at: '2026-11-02T08:42:52.590825+00:00'
+- node: pr_review
+  note: post-fix re-review (auto_fix=False)
+  at: '2026-11-02T08:42:52.590925+00:00'
+- node: pr_review
+  note: diff loaded Rust chars=4352
+  at: '2026-11-02T08:42:53.472521+00:00'
+- node: pr_review
+  note: 'inline review Rust: 2 comment(s)'
+  at: '2026-11-02T08:43:11.560827+00:00'
+- node: pr_review
+  note: 'Rust:needs_human:major:**AC gap**: The new logic correctly handles `-0.0`
+    vs `0.0` as distinct patterns'
+  at: '2026-11-02T08:43:16.233680+00:00'
+- node: pr_review
+  note: re-review triage deferred Rust:needs_human
+  at: '2026-11-02T08:43:16.233692+00:00'
+- node: pr_review
+  note: 'Rust:issue:minor:**Edge case**: The test validates `f(-1.0, true)` returns
+    `3`, which exercises t'
+  at: '2026-11-02T08:43:18.028402+00:00'
+- node: pr_review
+  note: 'Rust:issue:moderate:**AC violation: Helper function does not check that zeros
+    have different signs**'
+  at: '2026-11-02T08:43:22.278165+00:00'
+- node: pr_review
+  note: 'Rust:issue:minor:**AC-6 gap: Missing documentation comment content**
+
+
+    The story''s Technical Speci'
+  at: '2026-11-02T08:43:26.006856+00:00'
+- node: pr_review
+  note: awaiting feature_pr_human
+  at: '2026-11-02T08:43:29.977689+00:00'
 ---
 
 # Feature state

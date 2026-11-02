@@ -4,3 +4,6 @@ JSON:{"key": "intake:PER-94", "intent": "intake", "result": {"hash": "6f37e5b89c
 JSON:{"key": "codehost:open-pr:hub:PER-94:plan", "intent": "open_hub_pr", "result": "2", "at": "2026-11-02T08:00:43.427096+00:00"}
 JSON:{"key": "codehost:open-pr:hub:PER-94:architect", "intent": "open_hub_pr", "result": "3", "at": "2026-11-02T08:03:15.277138+00:00"}
 JSON:{"key": "codehost:open-pr:PER-94:Rust", "intent": "open_pr", "result": "1", "at": "2026-11-02T08:36:30.616363+00:00"}
+JSON:{"key": "pr-comment-fixed:PER-94:Rust:4440296541", "intent": "fix_code", "result": "4440296541", "at": "2026-11-02T08:42:37.417724+00:00"}
+JSON:{"key": "pr-comment-fixed:PER-94:Rust:4440296543", "intent": "fix_code", "result": "4440296543", "at": "2026-11-02T08:42:37.418031+00:00"}
+JSON:{"key": "pr-comment-resolved:PER-94:Rust:4440296543", "intent": "resolved", "result": "4440296543", "at": "2026-11-02T08:42:52.590223+00:00"}
