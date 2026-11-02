@@ -1,1 +1,1 @@
-{"story": "01-Rust", "repo": "Rust", "attempt": 3, "ok": true, "at": "2026-11-02T10:06:30+00:00", "checks": [{"name": "lint", "cmd": "", "exit": null, "summary": "no command set"}, {"name": "test", "cmd": "", "exit": null, "summary": "no command set"}]}
+{"story": "01-Rust", "repo": "Rust", "attempt": 3, "ok": true, "at": "2026-11-02T10:26:11+00:00", "checks": [{"name": "lint", "cmd": "./x fmt --check", "exit": 0, "summary": "Build completed successfully in 0:00:05"}, {"name": "test", "cmd": "./x test tidy", "exit": 0, "summary": "Build completed successfully in 0:00:18"}]}

@@ -24,3 +24,35 @@ Take it to [#llm-mentoring](https://rust-lang.zulipchat.com/#narrow/channel/6065
 No reviewer is named in this conversation, so I also cannot add the failing regression test that rule requires before stopping. Name the person who agreed to review it if you want that test-only step. The type-checker and MIR change stays banned.
 
 No files were changed. Rust’s LLM usage policy still forbids contributing text an LLM originated, including diagnostics, comments, and this compiler change, even if similar wording already appeared in the session.
+This change is soundness-sensitive, so I stopped before editing the compiler. No files were changed, and `./x test tidy` was not run.
+
+The behavior at issue is reachability in type checking. In `check_expr_with_expectation` (`compiler/rustc_hir_typeck/src/expr.rs`), an expression whose type is `!` and that is treated as a read is marked `Diverges::Always`. Repeat and array expressions go through that same path. That flag is then used when MIR is built and optimized, which decides whether later statements, including bounds checks, are deleted. That is type checking, MIR, and generated code. The story’s own symptom is undefined behavior in safe code. Implementation of that fix is banned under the repository LLM policy.
+
+The route for this work is the [#llm-mentoring Zulip](https://rust-lang.zulipchat.com/#narrow/channel/606558-llm-mentoring/). A named reviewer, a test, or a later edit does not make the compiler change allowed.
+
+A failing regression test is the only repository edit that rule allows, and even that is blocked here: no reviewer was named in this conversation. Name one if you want that test added and run. I will not implement the type-checker, MIR, or optimization changes after that.
+
+Text originally written by an LLM, including tests and comments, cannot be contributed upstream without the disclosure and review process in the [LLM usage policy](https://forge.rust-lang.org/policies/llm-usage.html).
+This change is soundness-sensitive, so the compiler fix stops here. The behavior in question is reachability: `compiler/rustc_hir_typeck` (including `expr.rs` and `diverges.rs`) decides whether code after a repeat or array expression is unreachable, and `compiler/rustc_mir_build` turns that into MIR. That controls whether later bounds checks are kept or dropped, which is type-checking, MIR, and generated code. Safe code can then hit undefined behavior.
+
+Implementation in those areas is banned. The route for the fix is the [#llm-mentoring Zulip](https://rust-lang.zulipchat.com/#narrow/channel/606558-llm-mentoring/).
+
+No reviewer is named in this conversation, so the regression tests the soundness rule requires are also on hold. Name someone who has agreed to review them and those tests can be added and run. After that observed failure, the type-checker and MIR edits still stay banned.
+
+`./x test tidy` was not run, because no story changes were made.
+
+LLM-originated text cannot be contributed to `rust-lang/rust`, even if a person later edits it: [LLM usage policy](https://forge.rust-lang.org/policies/llm-usage.html).
+This story is a soundness-sensitive compiler change, so the implementation is stopped. No files were edited, and `./x test tidy` was not run.
+
+The work is in the type checker and the MIR builder. `check_expr_array` and `check_expr_repeat` in `compiler/rustc_hir_typeck/src/expr.rs` decide whether a `[C; 0]` expression of type `!` makes the following code unreachable. That flag is then used when lowering HIR to MIR and when emitting later bounds checks. Code that computes types, MIR, or generated code is soundness-sensitive, including when the visible bug is an incorrect unreachable mark or an elided bounds check. Implementation of that behavior is banned.
+
+The route for this kind of change is the [#llm-mentoring Zulip](https://rust-lang.zulipchat.com/#narrow/channel/606558-llm-mentoring/). A named reviewer, a regression test, or later editing does not permit the compiler change.
+
+Two earlier gates also block any edit, including a regression test:
+
+- No reviewer has been named in this conversation. Name someone who already agreed to review it before any repository change.
+- The story also asks for new source comments in the compiler. Those comments have to be written by a person; they will not be generated here.
+
+After a reviewer is named, the only permitted next step is a failing regression test, left in the tree, with its failure observed. The type-checker and MIR changes still stay stopped after that.
+
+Text originally produced by an LLM, including tests, diagnostics, comments, and documentation, cannot be contributed upstream even if a person later edits it.
