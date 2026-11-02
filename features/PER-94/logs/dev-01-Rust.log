@@ -1,0 +1,19 @@
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 1)...
+Retry attempt 1...
+The match-lowering fix for PER-94 is soundness-sensitive, so I did not change the compiler or add the regression test.
+
+The bug is in MIR construction for `match`, in `compiler/rustc_mir_build/src/builder/matches/` (the story’s `simplify.rs` path is not in this tree). That code chooses which pattern arm runs after an equality test and a guard, including the `0.0` and `-0.0` cases. The Rust LLM policy treats MIR construction as soundness-sensitive, so the candidate-filtering change is banned here. A named reviewer does not lift that ban. The route for the fix is the [#llm-mentoring Zulip](https://rust-lang.zulipchat.com/#narrow/channel/606558-llm-mentoring/).
+
+The same policy allows only a failing regression test before stopping, and a separate gate blocks every repository edit until you name, in this conversation, another person who already agreed to review it. No reviewer has been named, so `tests/ui/match/float-pattern-guard-zero.rs` was not added and no test was run. No files were changed.
+
+Name that reviewer if you want the test-only step. I will add the test, run it, report the failure, and stop. I will not implement the match-lowering fix.
+
+Text originally created by an LLM, including a regression test or a compiler patch, cannot be contributed to `rust-lang/rust` even if a person later edits it. Any LLM-assisted contribution has to be disclosed as described in the [LLM usage policy](https://forge.rust-lang.org/policies/llm-usage.html); concealing that use is a Code of Conduct violation.
+RetriableError: Connection stalled
+Comment 4440296543 is covered in `tests/ui/match/float-pattern-guard-zero.rs`. The header now links the regression to https://github.com/rust-lang/rust/issues/165311 and https://github.com/rust-lang/rust/pull/122459. The five assertions for AC-1 through AC-5 were already there.
+
+Comment 4440296541 is not applied. `float_zeros_share_eq_test` in `compiler/rustc_mir_build/src/builder/matches/buckets.rs` chooses the success or failure arm of a float equality test while match lowering builds MIR. That is soundness-sensitive, so the implementation stays as it is. A reviewer, a passing test, or a later edit does not lift that ban. The route for this change is the [llm-mentoring Zulip](https://rust-lang.zulipchat.com/#narrow/channel/606558-llm-mentoring/).
+
+No stage1 compiler is built in this worktree, so `./x test tests/ui/match/float-pattern-guard-zero.rs` was not started. Bootstrap would still be in fixture setup well past 30 seconds.
+
+The new test comment is LLM-generated. Text originally created by an LLM cannot be contributed as human-written; see the [LLM usage policy](https://forge.rust-lang.org/policies/llm-usage.html).

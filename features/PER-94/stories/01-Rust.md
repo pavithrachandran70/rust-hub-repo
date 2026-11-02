@@ -76,7 +76,9 @@ IEEE float semantics treat `0.0 == -0.0` as true, but they are **distinct patter
 
 3. **Float constant identity:** `-0.0` and `0.0` are distinct bit patterns (`0x8000000000000000` vs `0x0000000000000000` for f64). Pattern matching must treat them as separate cases even though `0.0 == -0.0` evaluates to true.
 
-4. **Minimal change scope:** Modify only the candidate filtering/sorting logic for float patterns with guards. Do not change:
+4. **Detecting distinct floating-point zeros:** The helper function must verify that the test constant and case constant are **different** zeros (one positive, one negative), not just that both are zeros. Check both `is_zero()` **and** that the bit patterns differ (e.g., `test_leaf != case_leaf` or explicit sign bit comparison). This prevents incorrectly treating `(0.0, 0.0)` or `(-0.0, -0.0)` pairs the same as `(0.0, -0.0)`.
+
+5. **Minimal change scope:** Modify only the candidate filtering/sorting logic for float patterns with guards. Do not change:
    - Float equality operators (`==` for `f32`/`f64`)
    - Unrelated pattern matching code paths
    - The broader float matcher infrastructure
@@ -88,6 +90,7 @@ Add a test case in `tests/ui/match/` covering:
 - Distinct `-0.0` and `0.0` constants
 - Guard success and failure paths
 - Expected assertion that both `f(0.0, false)` and `f(-0.0, false)` return `2`
+- **Documentation:** Include a comment linking to the upstream bug report (https://github.com/rust-lang/rust/issues/165311) and noting this is a regression from PR #122459, so future maintainers understand what regression the test prevents
 
 ## Acceptance Criteria
 
@@ -172,6 +175,8 @@ Add a test case in `tests/ui/match/` covering:
 **Type:** unit  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
 
+**Description:** Verify that when `f(0.0, false)` is called, the guard on the `0.0 if b` arm fails, and the match continues to test the `-0.0` arm, which succeeds.
+
 ```rust
 assert_eq!(f(0.0, false), 2);
 ```
@@ -182,6 +187,8 @@ assert_eq!(f(0.0, false), 2);
 **Covers:** AC-2  
 **Type:** unit  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
+
+**Description:** Verify that when `f(-0.0, false)` is called, the guard on the `0.0 if b` arm fails, and the match continues to test the `-0.0` arm, which succeeds.
 
 ```rust
 assert_eq!(f(-0.0, false), 2);
@@ -194,6 +201,8 @@ assert_eq!(f(-0.0, false), 2);
 **Type:** unit  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
 
+**Description:** Verify that when `f(0.0, true)` is called, the guard on the `0.0 if b` arm succeeds, and the function returns `1`.
+
 ```rust
 assert_eq!(f(0.0, true), 1);
 ```
@@ -205,6 +214,8 @@ assert_eq!(f(0.0, true), 1);
 **Type:** unit  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
 
+**Description:** Verify that when `f(-0.0, true)` is called, the guard on the `0.0 if b` arm succeeds (since `0.0 == -0.0`), and the function returns `1`.
+
 ```rust
 assert_eq!(f(-0.0, true), 1);
 ```
@@ -215,6 +226,8 @@ assert_eq!(f(-0.0, true), 1);
 **Covers:** AC-5  
 **Type:** unit  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
+
+**Description:** Verify that non-zero float values fall through to the wildcard arm and return `3`, regardless of the guard parameter.
 
 ```rust
 assert_eq!(f(1.0, false), 3);
@@ -228,4 +241,9 @@ assert_eq!(f(-1.0, true), 3);
 **Type:** integration  
 **File:** `tests/ui/match/float-pattern-guard-zero.rs`
 
-**Verification:** CI runs `./x test tests/ui/match/float-pattern-guard-zero.rs` and reports success
+**Description:** Confirm the regression test file is created in the rustc compiler test suite at `tests/ui/match/float-pattern-guard-zero.rs`, includes documentation linking to upstream issue https://github.com/rust-lang/rust/issues/165311 and noting the regression from PR #122459, and passes when the test suite is run.
+
+**Verification:** CI runs `./x test tests/ui/match/float-pattern-guard-zero.rs` and reports success. Manual review confirms the test file contains:
+- The reproduction function `f(x: f64, b: bool) -> u8`
+- All five test assertions (AC-1 through AC-5)
+- A comment documenting the upstream issue and regression PR

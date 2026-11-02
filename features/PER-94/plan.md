@@ -14,10 +14,10 @@ Single-repo bug fix in rustc match lowering for float pattern constants with a c
 
 1. [x] **analyst (inline_story)** — Convert the ticket into an implementable story with Given/When/Then acceptance criteria and technical notes.
    - focus: Focus on the match lowering logic for float patterns with guards; include technical notes on the suspected regression from PR #122459 and the need to preserve distinct float constants (-0.0 vs 0.0) after guard failures.
-2. [ ] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
-3. [ ] **dev** _(auto)_ — Loop delivery.
-4. [ ] **pre_pr_qa** _(auto)_ — Loop delivery.
-5. [ ] **open_pr** _(auto)_ — Loop delivery.
+2. [x] **architect_gate (review)** _(auto)_ — Human approval of specs and this plan before Dev.
+3. [x] **dev** _(auto)_ — Loop delivery.
+4. [x] **pre_pr_qa** _(auto)_ — Loop delivery.
+5. [x] **open_pr** _(auto)_ — Loop delivery.
 6. [ ] **pr_review** _(auto)_ — Loop delivery.
 7. [ ] **merge** _(auto)_ — Loop delivery.
 

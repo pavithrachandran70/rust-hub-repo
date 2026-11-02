@@ -1,0 +1,24 @@
+{
+  "comment_ids": [
+    "4440296541",
+    "4440296543"
+  ],
+  "tier": "moderate",
+  "stories": [
+    "01-Rust"
+  ],
+  "items": [
+    {
+      "comment_id": "4440296541",
+      "repo": "Rust",
+      "path": "compiler/rustc_mir_build/src/builder/matches/buckets.rs",
+      "tier": "moderate"
+    },
+    {
+      "comment_id": "4440296543",
+      "repo": "Rust",
+      "path": "tests/ui/match/float-pattern-guard-zero.rs",
+      "tier": "minor"
+    }
+  ]
+}

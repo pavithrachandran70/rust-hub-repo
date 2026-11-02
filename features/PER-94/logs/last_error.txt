@@ -1,0 +1,22 @@
+open_pr: gh pr create -R pavithrachandran70/rust --base main --head feat/PER-94 --title PER-94: Rust --body Feature `PER-94` — repo `Rust`
+
+Merge order: Rust
+Sibling repos: Rust
+
+## Pre-PR QA
+# Pre-PR QA
+
+- stories present: yes
+- specs locked: True
+
+
+## Checks run before this PR
+
+**Story `01-Rust`** (attempt 2):
+- Lint: skipped (no command set)
+- Test: skipped (no command set)
+- Full log: `features/PER-94/logs/verify-01-Rust.log` in the hub
+
+Agent code review runs on this PR. Hub/spec PRs are human-only.
+ failed: error connecting to api.github.com
+check your internet connection or https://githubstatus.com
